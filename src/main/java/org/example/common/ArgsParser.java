@@ -12,7 +12,7 @@ public class ArgsParser {
     private HashMap<String, ParseType> parseMap = new HashMap<String, ParseType>(Map.ofEntries(
             Map.entry("-o", path -> repo.setOutputPath(path)),
             Map.entry("-p", prefix -> repo.setOutputPrefix(prefix)),
-            Map.entry("-a", outPutToExistingFile -> repo.setOutputToExistingFile(true)),
+            Map.entry("-a", outPutToExistingFile -> repo.setAddToExistingFiles(true)),
             Map.entry("-s", fullStat -> repo.setFullStat(false)),
             Map.entry("-f", fullStat -> repo.setFullStat(true))
     ));

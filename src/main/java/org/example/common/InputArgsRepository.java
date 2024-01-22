@@ -1,7 +1,9 @@
 package org.example.common;
 
 import org.example.interfaces.ArgsRepository;
+import org.example.interfaces.ResultFileParams;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 
 public class InputArgsRepository implements ArgsRepository {
@@ -13,71 +15,52 @@ public class InputArgsRepository implements ArgsRepository {
     private String outputPrefix;
     private boolean addToExistingFiles;
     private boolean fullStatistics;
+    private ResultFileParams resultFileCreator;
 
     @Override
     public void setFullStat(boolean value) {
         this.fullStatistics = value;
-//        System.out.printf("fullStat called!: %s%n", value);
-    }
-
-    @Override
-    public void setOutputToExistingFile(boolean value) {
-        this.addToExistingFiles = value;
-//        System.out.printf("outputToExistingFile called!: %s%n", value);
     }
 
     @Override
     public void addInputFilename(String filename) {
-            this.inputFiles.add(filename);
-//            System.out.printf("addInputFilename called!: %s%n", filename);
-    }
-
-    public String getOutputPrefix() {
-        return outputPrefix;
+        this.inputFiles.add(filename);
     }
 
     @Override
     public void setOutputPrefix(String prefix) {
         this.outputPrefix = prefix;
-        this.intFilename = prefix + this.intFilename;
-        this.floatsFilename = prefix + this.floatsFilename;
-        this.stringsFilename = prefix + this.stringsFilename;;
+
+        this.intFilename = this.outputPrefix + this.intFilename;
+        this.floatsFilename = this.outputPrefix + this.floatsFilename;
+        this.stringsFilename = this.outputPrefix + this.stringsFilename;
+
+        this.resultFileCreator.setIntFilename(this.intFilename);
+        this.resultFileCreator.setFloatFilename(this.floatsFilename);
+        this.resultFileCreator.setStringFilename(this.stringsFilename);
     }
 
-    public boolean isAddToExistingFiles() {
-        return addToExistingFiles;
-    }
-
-    public boolean isFullStatistics() {
-        return fullStatistics;
-    }
-
-    public String getOutputPath() {
-        return outputPath;
+    @Override
+    public void setAddToExistingFiles(boolean value) {
+        this.addToExistingFiles = value;
+        this.resultFileCreator.setAddToExistingFiles(this.addToExistingFiles);
     }
 
     @Override
     public void setOutputPath(String path) {
         this.outputPath = path;
-    }
-
-    public String getIntFilename() {
-        return intFilename;
-    }
-
-    public String getFloatsFilename() {
-        return floatsFilename;
-    }
-
-    public String getStringsFilename() {
-        return stringsFilename;
+        this.resultFileCreator.setOutputPath(this.outputPath);
     }
 
     public ArrayList<String> getInputFilenames() {
         return new ArrayList<>(this.inputFiles);
     }
 
-    public String getFilename(int index) {
-        return this.inputFiles.get(index);
+    public void setResultFileCreator(ResultFileParams resultFileCreator) {
+        this.resultFileCreator = resultFileCreator;
+        this.resultFileCreator.setIntFilename(this.intFilename);
+        this.resultFileCreator.setFloatFilename(this.floatsFilename);
+        this.resultFileCreator.setStringFilename(this.stringsFilename);
+        this.resultFileCreator.setOutputPath(this.outputPath);
     }
 }

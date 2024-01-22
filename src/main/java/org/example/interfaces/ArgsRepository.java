@@ -6,7 +6,7 @@ public interface ArgsRepository extends Observable {
 
     void setOutputPrefix(String prefix);
 
-    void setOutputToExistingFile(boolean value);
+    void setAddToExistingFiles(boolean value);
 
     void setFullStat(boolean value);
 }
