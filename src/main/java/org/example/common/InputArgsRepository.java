@@ -1,10 +1,11 @@
-package org.example;
+package org.example.common;
 
-import java.io.File;
+import org.example.interfaces.ArgsRepository;
+
 import java.util.ArrayList;
 
-public class InputArgsRepository implements Observer {
-    private final ArrayList<File> inputFiles = new ArrayList<>();
+public class InputArgsRepository implements ArgsRepository {
+    private final ArrayList<String> inputFiles = new ArrayList<>();
     private String intFilename = "integers.txt";
     private String floatsFilename = "floats.txt";
     private String stringsFilename = "strings.txt";
@@ -16,19 +17,19 @@ public class InputArgsRepository implements Observer {
     @Override
     public void setFullStat(boolean value) {
         this.fullStatistics = value;
-        System.out.println("fullStat called!: %s".formatted(value));
+//        System.out.printf("fullStat called!: %s%n", value);
     }
 
     @Override
     public void setOutputToExistingFile(boolean value) {
         this.addToExistingFiles = value;
-        System.out.println("outputToExistinFile called!: %s".formatted(value));
+//        System.out.printf("outputToExistingFile called!: %s%n", value);
     }
 
     @Override
     public void addInputFilename(String filename) {
-        this.inputFiles.add(new File(filename));
-        System.out.println("addInputFilename called!: %s".formatted(filename));
+            this.inputFiles.add(filename);
+//            System.out.printf("addInputFilename called!: %s%n", filename);
     }
 
     public String getOutputPrefix() {
@@ -40,8 +41,7 @@ public class InputArgsRepository implements Observer {
         this.outputPrefix = prefix;
         this.intFilename = prefix + this.intFilename;
         this.floatsFilename = prefix + this.floatsFilename;
-        this.stringsFilename = prefix + this.stringsFilename;
-        System.out.println("outputPrefix called!: %s".formatted(prefix));
+        this.stringsFilename = prefix + this.stringsFilename;;
     }
 
     public boolean isAddToExistingFiles() {
@@ -59,7 +59,6 @@ public class InputArgsRepository implements Observer {
     @Override
     public void setOutputPath(String path) {
         this.outputPath = path;
-        System.out.println("setOutputPath called!: %s".formatted(path));
     }
 
     public String getIntFilename() {
@@ -74,7 +73,11 @@ public class InputArgsRepository implements Observer {
         return stringsFilename;
     }
 
-    public ArrayList<File> getInputFiles() {
+    public ArrayList<String> getInputFilenames() {
         return new ArrayList<>(this.inputFiles);
+    }
+
+    public String getFilename(int index) {
+        return this.inputFiles.get(index);
     }
 }

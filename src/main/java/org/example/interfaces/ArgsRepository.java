@@ -1,8 +1,6 @@
-package org.example;
+package org.example.interfaces;
 
-import java.util.List;
-
-public interface Observer {
+public interface ArgsRepository extends Observable {
     void addInputFilename(String filename);
     void setOutputPath(String path);
 

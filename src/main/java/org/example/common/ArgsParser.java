@@ -1,11 +1,14 @@
-package org.example;
+package org.example.common;
+
+import org.example.interfaces.ArgsRepository;
+import org.example.interfaces.ParseType;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class ArgsParser {
     private final String[] args;
-    private Observer repo;
+    private ArgsRepository repo;
     private HashMap<String, ParseType> parseMap = new HashMap<String, ParseType>(Map.ofEntries(
             Map.entry("-o", path -> repo.setOutputPath(path)),
             Map.entry("-p", prefix -> repo.setOutputPrefix(prefix)),
@@ -26,7 +29,7 @@ public class ArgsParser {
         this.parseMap = parseMode;
     }
 
-    public ArgsParser setRepo(Observer repo) {
+    public ArgsParser setRepo(ArgsRepository repo) {
         this.repo = repo;
         return this;
     }
