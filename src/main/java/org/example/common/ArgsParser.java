@@ -39,7 +39,7 @@ public class ArgsParser {
             if (this.parseMap.containsKey(args[i])) {
                 if (args[i].startsWith("-o") || args[i].startsWith("-p")) {
                     this.parseMap.get(args[i]).parse(args[i + 1]);
-                    i++;    
+                    i++;
                 } else this.parseMap.get(args[i]).parse(args[i]);
             } else this.repo.addInputFilename(args[i]);
         }

@@ -63,17 +63,18 @@ public class ResultFileWriter implements ResultFileParams {
     private BufferedWriter initilizeWriter(StringType stringType) throws IOException {
         BufferedWriter bufferedWriter;
         if (stringType.toString().equals("INT")) {
-            if (this.addToExistingFile) this.intFileWriter = new BufferedWriter(new FileWriter(outputPath + intFilaname, true));
+            if (this.addToExistingFile)
+                this.intFileWriter = new BufferedWriter(new FileWriter(outputPath + intFilaname, true));
             else this.intFileWriter = new BufferedWriter(new FileWriter(outputPath + intFilaname));
             bufferedWriter = this.intFileWriter;
-        }
-        else if (stringType.toString().equals("FLOAT")) {
-            if (this.addToExistingFile) this.floatFileWriter = new BufferedWriter(new FileWriter(outputPath + floatFilename, true));
+        } else if (stringType.toString().equals("FLOAT")) {
+            if (this.addToExistingFile)
+                this.floatFileWriter = new BufferedWriter(new FileWriter(outputPath + floatFilename, true));
             else this.floatFileWriter = new BufferedWriter(new FileWriter(outputPath + floatFilename));
             bufferedWriter = this.floatFileWriter;
-        }
-        else {
-            if (this.addToExistingFile) this.stringFileWriter = new BufferedWriter(new FileWriter(outputPath + stringFilename, true));
+        } else {
+            if (this.addToExistingFile)
+                this.stringFileWriter = new BufferedWriter(new FileWriter(outputPath + stringFilename, true));
             else this.stringFileWriter = new BufferedWriter(new FileWriter(outputPath + stringFilename));
             bufferedWriter = this.stringFileWriter;
         }

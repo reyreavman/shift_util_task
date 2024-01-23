@@ -24,7 +24,7 @@ public class Main {
         };
 
         InputFilesHandler inputFilesHandler = new InputFilesHandler(inputArgsRepository.getInputFilenames()).setStringLineHandler(stringLineHandler).handle();
-        System.out.println(statistics.toString());
+        System.out.println(statistics);
         resultFileWriter.closeWriters();
     }
 }
