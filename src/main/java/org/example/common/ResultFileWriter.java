@@ -48,7 +48,6 @@ public class ResultFileWriter implements ResultFileParams {
         BufferedWriter writer = this.writersMap.get(stringType);
         if (writer == null) writer = initilizeWriter(stringType);
         writer.write(string + "\n");
-        System.out.println(stringType + " " + string);
     }
 
     public void closeWriters() {

@@ -11,17 +11,20 @@ public class Main {
         ResultFileWriter resultFileWriter = new ResultFileWriter();
         inputArgsRepository.setResultFileWriter(resultFileWriter);
         ArgsParser argsParser = new ArgsParser(args).setRepo(inputArgsRepository).parse();
+        Statistics statistics = new Statistics(true);
 
         StringLineHandler stringLineHandler = (stringLine) -> {
             try {
                 StringType stringType = StringLineAnalyzer.analyze(stringLine);
+                statistics.handle(stringType, stringLine);
                 resultFileWriter.write(stringType, stringLine);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         };
 
-        Foo foo = new Foo(inputArgsRepository.getInputFilenames()).setStringLineHandler(stringLineHandler).doMyJob();
+        InputFilesHandler inputFilesHandler = new InputFilesHandler(inputArgsRepository.getInputFilenames()).setStringLineHandler(stringLineHandler).handle();
+        System.out.println(statistics.toString());
         resultFileWriter.closeWriters();
     }
 }

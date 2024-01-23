@@ -6,14 +6,15 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Foo {
+public class InputFilesHandler {
     private final ArrayList<BufferedReader> fileReaders = new ArrayList<>();
     private StringLineHandler stringLineHandler;
 
-    public Foo(List<String> filenames) {
+    public InputFilesHandler(List<String> filenames) {
         for (String filename : filenames) {
             this.addNewFilename(filename);
         }
@@ -21,9 +22,11 @@ public class Foo {
 
     public void addNewFilename(String filename) {
         try {
-            fileReaders.add(new BufferedReader(new FileReader(filename)));
+            fileReaders.add(new BufferedReader(new FileReader(filename, StandardCharsets.UTF_8)));
         } catch (FileNotFoundException e) {
             System.out.printf("File not found: %s%n", filename);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -31,12 +34,12 @@ public class Foo {
         return this.fileReaders.get(index);
     }
 
-    public Foo setStringLineHandler(StringLineHandler stringLineHandler) {
+    public InputFilesHandler setStringLineHandler(StringLineHandler stringLineHandler) {
         this.stringLineHandler = stringLineHandler;
         return this;
     }
 
-    public Foo doMyJob() throws IOException {
+    public InputFilesHandler handle() throws IOException {
         for (BufferedReader reader : this.fileReaders) {
             while (true) {
                 String line = reader.readLine();

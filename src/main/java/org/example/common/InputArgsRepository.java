@@ -14,7 +14,7 @@ public class InputArgsRepository implements ArgsRepository {
     private String outputPrefix;
     private boolean addToExistingFiles;
     private boolean fullStatistics;
-    private ResultFileParams resultFileCreator;
+    private ResultFileParams resultFileParams;
 
     @Override
     public void setFullStat(boolean value) {
@@ -34,32 +34,36 @@ public class InputArgsRepository implements ArgsRepository {
         this.floatsFilename = this.outputPrefix + this.floatsFilename;
         this.stringsFilename = this.outputPrefix + this.stringsFilename;
 
-        this.resultFileCreator.setIntFilename(this.intFilename);
-        this.resultFileCreator.setFloatFilename(this.floatsFilename);
-        this.resultFileCreator.setStringFilename(this.stringsFilename);
+        this.resultFileParams.setIntFilename(this.intFilename);
+        this.resultFileParams.setFloatFilename(this.floatsFilename);
+        this.resultFileParams.setStringFilename(this.stringsFilename);
     }
 
     @Override
     public void setAddToExistingFiles(boolean value) {
         this.addToExistingFiles = value;
-        this.resultFileCreator.setAddToExistingFiles(this.addToExistingFiles);
+        this.resultFileParams.setAddToExistingFiles(this.addToExistingFiles);
     }
 
     @Override
     public void setOutputPath(String path) {
         this.outputPath = path;
-        this.resultFileCreator.setOutputPath(this.outputPath);
+        this.resultFileParams.setOutputPath(this.outputPath);
     }
 
     public ArrayList<String> getInputFilenames() {
         return new ArrayList<>(this.inputFiles);
     }
 
-    public void setResultFileWriter(ResultFileParams resultFileCreator) {
-        this.resultFileCreator = resultFileCreator;
-        this.resultFileCreator.setIntFilename(this.intFilename);
-        this.resultFileCreator.setFloatFilename(this.floatsFilename);
-        this.resultFileCreator.setStringFilename(this.stringsFilename);
-        this.resultFileCreator.setOutputPath(this.outputPath);
+    public boolean isFullStatisticsNeeded() {
+        return this.fullStatistics;
+    }
+
+    public void setResultFileWriter(ResultFileParams resultFileWriter) {
+        this.resultFileParams = resultFileWriter;
+        this.resultFileParams.setIntFilename(this.intFilename);
+        this.resultFileParams.setFloatFilename(this.floatsFilename);
+        this.resultFileParams.setStringFilename(this.stringsFilename);
+        this.resultFileParams.setOutputPath(this.outputPath);
     }
 }
