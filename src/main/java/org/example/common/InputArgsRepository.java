@@ -61,6 +61,10 @@ public class InputArgsRepository implements ArgsRepository {
 
     public void setResultFileWriter(ResultFileParams resultFileWriter) {
         this.resultFileParams = resultFileWriter;
+        transferDataToResulFileParams();
+    }
+
+    public void transferDataToResulFileParams() {
         this.resultFileParams.setIntFilename(this.intFilename);
         this.resultFileParams.setFloatFilename(this.floatsFilename);
         this.resultFileParams.setStringFilename(this.stringsFilename);
