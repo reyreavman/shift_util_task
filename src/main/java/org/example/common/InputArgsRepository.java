@@ -3,7 +3,6 @@ package org.example.common;
 import org.example.interfaces.ArgsRepository;
 import org.example.interfaces.ResultFileParams;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 
 public class InputArgsRepository implements ArgsRepository {
@@ -56,7 +55,7 @@ public class InputArgsRepository implements ArgsRepository {
         return new ArrayList<>(this.inputFiles);
     }
 
-    public void setResultFileCreator(ResultFileParams resultFileCreator) {
+    public void setResultFileWriter(ResultFileParams resultFileCreator) {
         this.resultFileCreator = resultFileCreator;
         this.resultFileCreator.setIntFilename(this.intFilename);
         this.resultFileCreator.setFloatFilename(this.floatsFilename);

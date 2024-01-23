@@ -1,6 +1,6 @@
 package org.example.common;
 
-import org.example.interfaces.Action;
+import org.example.interfaces.StringLineHandler;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Foo {
     private final ArrayList<BufferedReader> fileReaders = new ArrayList<>();
-    private Action action;
+    private StringLineHandler stringLineHandler;
 
     public Foo(List<String> filenames) {
         for (String filename : filenames) {
@@ -31,8 +31,8 @@ public class Foo {
         return this.fileReaders.get(index);
     }
 
-    public Foo setAction(Action action) {
-        this.action = action;
+    public Foo setStringLineHandler(StringLineHandler stringLineHandler) {
+        this.stringLineHandler = stringLineHandler;
         return this;
     }
 
@@ -41,7 +41,7 @@ public class Foo {
             while (true) {
                 String line = reader.readLine();
                 if (line == null) break;
-                action.invoke(line);
+                stringLineHandler.invoke(line);
             }
             reader.close();
         }
