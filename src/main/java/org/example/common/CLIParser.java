@@ -50,7 +50,7 @@ public class CLIParser {
             String value = iterator.next();
             File file = new File(value);
             if (!file.isFile()) {
-                System.out.println("-in: The entered data does not represent a file(" + file.getAbsoluteFile() + ")");
+                System.out.println("-in: The entered data does not represent an exist file(" + file.getAbsoluteFile() + ")");
                 System.exit(0);
             }
             builder.addInputFile(file);
