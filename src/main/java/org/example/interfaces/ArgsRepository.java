@@ -1,6 +1,6 @@
 package org.example.interfaces;
 
-public interface ArgsRepository extends Observable {
+public interface ArgsRepository {
     void addInputFilename(String filename);
 
     void setOutputPath(String path);

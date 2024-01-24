@@ -12,7 +12,7 @@ public class ResultFileWriter implements ResultFileParams {
     private BufferedWriter intFileWriter;
     private BufferedWriter floatFileWriter;
     private BufferedWriter stringFileWriter;
-    private String intFilaname;
+    private String intFilename;
     private String floatFilename;
     private String stringFilename;
     private String outputPath;
@@ -20,7 +20,7 @@ public class ResultFileWriter implements ResultFileParams {
 
     @Override
     public void setIntFilename(String intFilename) {
-        this.intFilaname = intFilename;
+        this.intFilename = intFilename;
     }
 
     @Override
@@ -40,7 +40,7 @@ public class ResultFileWriter implements ResultFileParams {
     }
 
     @Override
-    public void setAddToExistingFiles(boolean value) {
+    public void setWriteToExistingFiles(boolean value) {
         this.addToExistingFile = value;
     }
 
@@ -64,8 +64,8 @@ public class ResultFileWriter implements ResultFileParams {
         BufferedWriter bufferedWriter;
         if (stringType.toString().equals("INT")) {
             if (this.addToExistingFile)
-                this.intFileWriter = new BufferedWriter(new FileWriter(outputPath + intFilaname, true));
-            else this.intFileWriter = new BufferedWriter(new FileWriter(outputPath + intFilaname));
+                this.intFileWriter = new BufferedWriter(new FileWriter(outputPath + intFilename, true));
+            else this.intFileWriter = new BufferedWriter(new FileWriter(outputPath + intFilename));
             bufferedWriter = this.intFileWriter;
         } else if (stringType.toString().equals("FLOAT")) {
             if (this.addToExistingFile)

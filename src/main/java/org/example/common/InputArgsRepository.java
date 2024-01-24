@@ -42,7 +42,7 @@ public class InputArgsRepository implements ArgsRepository {
     @Override
     public void setAddToExistingFiles(boolean value) {
         this.addToExistingFiles = value;
-        this.resultFileParams.setAddToExistingFiles(this.addToExistingFiles);
+        this.resultFileParams.setWriteToExistingFiles(this.addToExistingFiles);
     }
 
     @Override

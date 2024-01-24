@@ -1,6 +1,6 @@
 package org.example.interfaces;
 
-public interface ResultFileParams extends Observable {
+public interface ResultFileParams {
     void setIntFilename(String intFilename);
 
     void setFloatFilename(String floatFilename);
@@ -9,5 +9,5 @@ public interface ResultFileParams extends Observable {
 
     void setOutputPath(String path);
 
-    void setAddToExistingFiles(boolean value);
+    void setWriteToExistingFiles(boolean value);
 }

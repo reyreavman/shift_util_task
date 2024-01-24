@@ -11,11 +11,12 @@ public class Main {
         ResultFileWriter resultFileWriter = new ResultFileWriter();
         inputArgsRepository.setResultFileWriter(resultFileWriter);
         ArgsParser argsParser = new ArgsParser(args).setRepo(inputArgsRepository).parse();
-        Statistics statistics = new Statistics(true);
+        Statistics statistics = new Statistics(inputArgsRepository.isFullStatisticsNeeded());
+        StringLineAnalyzer stringLineAnalyzer = new StringLineAnalyzer();
 
         StringLineHandler stringLineHandler = (stringLine) -> {
             try {
-                StringType stringType = StringLineAnalyzer.analyze(stringLine);
+                StringType stringType = stringLineAnalyzer.analyzeStringLine(stringLine);
                 statistics.handle(stringType, stringLine);
                 resultFileWriter.write(stringType, stringLine);
             } catch (IOException e) {

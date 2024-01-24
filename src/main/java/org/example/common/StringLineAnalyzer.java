@@ -4,7 +4,7 @@ public class StringLineAnalyzer {
     private final static String INT_REGEX = "^-?\\d+$";
     private final static String FLOAT_REGEX = "^-?\\d+(\\.\\d+)?E?e?-?\\d*$";
 
-    public static StringType analyze(String stringLine) {
+    public StringType analyzeStringLine(String stringLine) {
         if (stringLine.matches(INT_REGEX)) {
             return StringType.INT;
         }
