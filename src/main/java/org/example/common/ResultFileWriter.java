@@ -6,12 +6,10 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 public class ResultFileWriter implements ResultFileParams {
     private final HashMap<StringType, BufferedWriter> writersMap = new HashMap<>();
-    private BufferedWriter intFileWriter;
-    private BufferedWriter floatFileWriter;
-    private BufferedWriter stringFileWriter;
     private String intFilename;
     private String floatFilename;
     private String stringFilename;
@@ -51,34 +49,23 @@ public class ResultFileWriter implements ResultFileParams {
     }
 
     public void closeWriters() {
-        try {
-            if (this.intFileWriter != null) this.intFileWriter.close();
-            if (this.floatFileWriter != null) this.floatFileWriter.close();
-            if (this.stringFileWriter != null) this.stringFileWriter.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        for (StringType stringType : StringType.values()) {
+            if (this.writersMap.get(stringType) != null) {
+                try {
+                    this.writersMap.get(stringType).close();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
     }
 
     private BufferedWriter initilizeWriter(StringType stringType) throws IOException {
-        BufferedWriter bufferedWriter;
-        if (stringType.toString().equals("INT")) {
-            if (this.addToExistingFile)
-                this.intFileWriter = new BufferedWriter(new FileWriter(outputPath + intFilename, true));
-            else this.intFileWriter = new BufferedWriter(new FileWriter(outputPath + intFilename));
-            bufferedWriter = this.intFileWriter;
-        } else if (stringType.toString().equals("FLOAT")) {
-            if (this.addToExistingFile)
-                this.floatFileWriter = new BufferedWriter(new FileWriter(outputPath + floatFilename, true));
-            else this.floatFileWriter = new BufferedWriter(new FileWriter(outputPath + floatFilename));
-            bufferedWriter = this.floatFileWriter;
-        } else {
-            if (this.addToExistingFile)
-                this.stringFileWriter = new BufferedWriter(new FileWriter(outputPath + stringFilename, true));
-            else this.stringFileWriter = new BufferedWriter(new FileWriter(outputPath + stringFilename));
-            bufferedWriter = this.stringFileWriter;
-        }
-        this.writersMap.put(stringType, bufferedWriter);
-        return bufferedWriter;
+        String allPath;
+        if (stringType == StringType.INT) allPath = outputPath + intFilename;
+        else if (stringType == StringType.FLOAT) allPath = outputPath + floatFilename;
+        else allPath = outputPath + stringFilename;
+        this.writersMap.put(stringType, new BufferedWriter(new FileWriter(allPath, this.addToExistingFile)));
+        return this.writersMap.get(stringType);
     }
 }
