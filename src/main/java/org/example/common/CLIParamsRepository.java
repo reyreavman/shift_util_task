@@ -2,11 +2,12 @@ package org.example.common;
 
 import org.example.interfaces.ResultFileParams;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CLIParamsRepository {
-    private final ArrayList<String> inputFiles;
+    private final ArrayList<File> inputFiles;
     private final String intsFilename;
     private final String floatsFilename;
     private final String stringFilename;
@@ -14,7 +15,6 @@ public class CLIParamsRepository {
     private final String outputPrefix;
     private final boolean writeToExistingFiles;
     private final boolean fullStatNeeded;
-    private final ResultFileParams resultFileParams;
 
     private CLIParamsRepository(Builder builder) {
         this.inputFiles = builder.inputFiles;
@@ -25,17 +25,26 @@ public class CLIParamsRepository {
         this.outputPrefix = builder.outputPrefix;
         this.writeToExistingFiles = builder.writeToExistingFiles;
         this.fullStatNeeded = builder.fullStatNeeded;
-        this.resultFileParams = builder.resultFileParams;
+    }
 
-        this.resultFileParams.setIntFilename(this.intsFilename);
-        this.resultFileParams.setFloatFilename(this.floatsFilename);
-        this.resultFileParams.setStringFilename(this.stringFilename);
-        this.resultFileParams.setOutputPath(this.outputPath);
-        this.resultFileParams.setWriteToExistingFiles(this.writeToExistingFiles);
+    public void transferToResultParams(ResultFileParams resultFileParams) {
+        resultFileParams.setIntFilename(this.intsFilename);
+        resultFileParams.setFloatFilename(this.floatsFilename);
+        resultFileParams.setStringFilename(this.stringFilename);
+        resultFileParams.setOutputPath(this.outputPath);
+        resultFileParams.setWriteToExistingFiles(this.writeToExistingFiles);
+    }
+
+    public ArrayList<File> getInputFilenames() {
+        return this.inputFiles;
+    }
+
+    public boolean isFullStatisticsNeeded() {
+        return this.fullStatNeeded;
     }
 
     public static class Builder {
-        private final ArrayList<String> inputFiles;
+        private ArrayList<File> inputFiles = new ArrayList<>();
         private String intsFilename = "integers.txt";
         private String floatsFilename = "floats.txt";
         private String stringFilename = "string.txt";
@@ -44,10 +53,6 @@ public class CLIParamsRepository {
         private boolean writeToExistingFiles;
         private boolean fullStatNeeded;
         private ResultFileParams resultFileParams;
-
-        public Builder(List<String> inputFiles) {
-            this.inputFiles = new ArrayList<String>(inputFiles);
-        }
 
         public Builder setOutputPath(String path) {
             this.outputPath = path;
@@ -75,6 +80,10 @@ public class CLIParamsRepository {
         public Builder setResultFileParams(ResultFileParams resultFileParams) {
             this.resultFileParams = resultFileParams;
             return this;
+        }
+        
+        public void addInputFile(File file) {
+            this.inputFiles.add(file);
         }
 
         public CLIParamsRepository build() {

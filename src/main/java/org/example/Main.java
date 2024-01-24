@@ -3,15 +3,15 @@ package org.example;
 import org.example.common.*;
 import org.example.interfaces.StringLineHandler;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        InputArgsRepository inputArgsRepository = new InputArgsRepository();
+        CLIParamsRepository cliParamsRepository = new CLIParser().parse(args);
         ResultFileWriter resultFileWriter = new ResultFileWriter();
-        inputArgsRepository.setResultFileWriter(resultFileWriter);
-        ArgsParser argsParser = new ArgsParser(args).setRepo(inputArgsRepository).parse();
-        Statistics statistics = new Statistics(inputArgsRepository.isFullStatisticsNeeded());
+        cliParamsRepository.transferToResultParams(resultFileWriter);
+        Statistics statistics = new Statistics(cliParamsRepository.isFullStatisticsNeeded());
         StringLineAnalyzer stringLineAnalyzer = new StringLineAnalyzer();
 
         StringLineHandler stringLineHandler = (stringLine) -> {
@@ -20,11 +20,14 @@ public class Main {
                 statistics.handle(stringType, stringLine);
                 resultFileWriter.write(stringType, stringLine);
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                if (e.getClass() == FileNotFoundException.class) {
+                    System.out.println("File not found: " + e.getLocalizedMessage());
+                    System.exit(0);
+                }
             }
         };
 
-        InputFilesHandler inputFilesHandler = new InputFilesHandler(inputArgsRepository.getInputFilenames()).setStringLineHandler(stringLineHandler).handle();
+        InputFilesHandler inputFilesHandler = new InputFilesHandler(cliParamsRepository.getInputFilenames()).setStringLineHandler(stringLineHandler).handle();
         System.out.println(statistics);
         resultFileWriter.closeWriters();
     }

@@ -2,10 +2,7 @@ package org.example.common;
 
 import org.example.interfaces.StringLineHandler;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,13 +12,13 @@ public class InputFilesHandler {
     private StringLineHandler stringLineHandler;
 
 
-    public InputFilesHandler(List<String> filenames) {
-        for (String filename : filenames) {
+    public InputFilesHandler(List<File> filenames) {
+        for (File filename : filenames) {
             this.addNewFilename(filename);
         }
     }
 
-    public void addNewFilename(String filename) {
+    public void addNewFilename(File filename) {
         try {
             fileReaders.add(new BufferedReader(new FileReader(filename, StandardCharsets.UTF_8)));
         } catch (FileNotFoundException e) {
