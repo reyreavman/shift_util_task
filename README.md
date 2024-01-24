@@ -20,3 +20,5 @@ java_version - 19, gradle_version - 8.4
 
   **пример запуска программы**:
   java -jar Shift_Util.jar -f -a -p results_ -in in1.txt -in in2.txt
+
+  **код лежит в ветке develop**
