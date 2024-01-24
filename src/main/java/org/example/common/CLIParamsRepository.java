@@ -4,7 +4,6 @@ import org.example.interfaces.ResultFileParams;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
 public class CLIParamsRepository {
     private final ArrayList<File> inputFiles;
@@ -44,7 +43,7 @@ public class CLIParamsRepository {
     }
 
     public static class Builder {
-        private ArrayList<File> inputFiles = new ArrayList<>();
+        private final ArrayList<File> inputFiles = new ArrayList<>();
         private String intsFilename = "integers.txt";
         private String floatsFilename = "floats.txt";
         private String stringFilename = "string.txt";
@@ -81,7 +80,7 @@ public class CLIParamsRepository {
             this.resultFileParams = resultFileParams;
             return this;
         }
-        
+
         public void addInputFile(File file) {
             this.inputFiles.add(file);
         }

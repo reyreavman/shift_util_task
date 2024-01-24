@@ -49,11 +49,11 @@ public class CLIParser {
         if (iterator.hasNext()) {
             String value = iterator.next();
             File file = new File(value);
-            if(!file.isFile()) {
+            if (!file.isFile()) {
                 System.out.println("-in: The entered data does not represent a file(" + file.getAbsoluteFile() + ")");
                 System.exit(0);
             }
-            builder.addInputFile (file);
+            builder.addInputFile(file);
         }
         if (iterator.hasNext()) return iterator.next();
         return null;

@@ -11,7 +11,6 @@ public class InputFilesHandler {
     private final ArrayList<BufferedReader> fileReaders = new ArrayList<>();
     private StringLineHandler stringLineHandler;
 
-
     public InputFilesHandler(List<File> filenames) {
         for (File filename : filenames) {
             this.addNewFilename(filename);

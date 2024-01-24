@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Statistics {
-    private boolean fullSize;
+    private final boolean fullSize;
     private int elementsCount = 0;
 
     private final HashMap<StringType, StatHandler> typeMap = new HashMap<>(Map.ofEntries(
@@ -50,12 +50,14 @@ public class Statistics {
         if (!this.fullSize) return shortStat;
         else if (this.fullSize) {
             StringBuilder builder = new StringBuilder(shortStat);
-            if (IntegerStat.callCount > 0) builder.append("Integers: count — %s, min — %s, max — %s, sumAll — %s, avg — %s%n".formatted(IntegerStat.callCount, IntegerStat.min, IntegerStat.max, IntegerStat.sum, IntegerStat.avg));
-            if (FloatStat.callsCount > 0) builder.append("Floats: count — %s, min — %s, max — %s, sumAll — %s, avg — %s%n".formatted(FloatStat.callsCount, FloatStat.min, FloatStat.max, FloatStat.sum, FloatStat.avg));
-            if (StringStat.callsCount > 0) builder.append("Strings: count — %s, minLength — %s, maxLength — %s%n".formatted(StringStat.callsCount, StringStat.minLength, StringStat.maxLength));
+            if (IntegerStat.callCount > 0)
+                builder.append("Integers: count — %s, min — %s, max — %s, sumAll — %s, avg — %s%n".formatted(IntegerStat.callCount, IntegerStat.min, IntegerStat.max, IntegerStat.sum, IntegerStat.avg));
+            if (FloatStat.callsCount > 0)
+                builder.append("Floats: count — %s, min — %s, max — %s, sumAll — %s, avg — %s%n".formatted(FloatStat.callsCount, FloatStat.min, FloatStat.max, FloatStat.sum, FloatStat.avg));
+            if (StringStat.callsCount > 0)
+                builder.append("Strings: count — %s, minLength — %s, maxLength — %s%n".formatted(StringStat.callsCount, StringStat.minLength, StringStat.maxLength));
             return builder.toString();
-        }
-        else return "";
+        } else return "";
     }
 
     private static class IntegerStat {

@@ -6,7 +6,6 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
 
 public class ResultFileWriter implements ResultFileParams {
     private final HashMap<StringType, BufferedWriter> writersMap = new HashMap<>();
